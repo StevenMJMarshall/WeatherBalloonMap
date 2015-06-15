@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <style type="text/css">
+    html,
+    body,
+    #map-canvas {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    </style>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8HeasIrsT_RwJ9BfE3dN8GF2Xz5wiV18">
+    </script>
+</head>
+
+<body>
+    <div id="sidebar" class="col-sm-4">
+        <div id="latestdata" class="well">
+            <strong>Latest Data:</strong>
+            <script>
+            </script>
+        </div>
+        <div id="charts" class="well">
+            Compleat Flight info here!
+        </div>
+    </div>
+    <div id="map-canvas" class="col-sm-8"></div>
+    <script type="text/javascript">
+    var xmlhttp = new XMLHttpRequest();
+    var url = "https://data.sparkfun.com/output/wpvj38xXg8HbE4x9ndYN.json"
+    var json = $.getJSON("https://data.sparkfun.com/output/wpvj38xXg8HbE4x9ndYN.json");
+    console.log(json)
+    // var flightCoordinates = [
+    //     new google.maps.LatLng(33.505304, -86.807809),
+    //     new google.maps.LatLng(33.505404, -86.807909),
+    //     new google.maps.LatLng(33.505504, -86.808009),
+    //     new google.maps.LatLng(33.505604, -86.808109),
+    //     new google.maps.LatLng(33.505704, -86.808209),
+    //     new google.maps.LatLng(33.506304, -86.808309),
+    //     new google.maps.LatLng(33.507404, -86.808409),
+    //     new google.maps.LatLng(33.508904, -86.808709),
+    //     new google.maps.LatLng(33.509704, -86.808909),
+    //     new google.maps.LatLng(33.510604, -86.809209),
+    //     new google.maps.LatLng(33.511404, -86.809509),
+    //     new google.maps.LatLng(33.512404, -86.809909),
+    //     new google.maps.LatLng(33.514504, -86.810409),
+    //     new google.maps.LatLng(33.516704, -86.811409),
+    //     new google.maps.LatLng(33.514174, -86.813509),
+    //     new google.maps.LatLng(33.514804, -86.813209),
+    //     new google.maps.LatLng(33.515704, -86.814509),
+    //     new google.maps.LatLng(33.517804, -86.815509)
+    // ];
+    // var flightDescriptions = [
+    //     '<b>Time: 10:32</b><br> Location: ' + flightCoordinates[0] + '<br>mph: 1',
+    //     '<b>Time: 10:37</b><br> Location: ' + flightCoordinates[1] + '<br>mph: 2',
+    //     '<b>Time: 10:42</b><br> Location: ' + flightCoordinates[2] + '<br>mph: 3',
+    //     '<b>Time: 10:47</b><br> Location: ' + flightCoordinates[3] + '<br>mph: 4',
+    //     '<b>Time: 10:52</b><br> Location: ' + flightCoordinates[4] + '<br>mph: 5',
+    //     '<b>Time: 10:57</b><br> Location: ' + flightCoordinates[5] + '<br>mph: 6',
+    //     '<b>Time: 11:02</b><br> Location: ' + flightCoordinates[6] + '<br>mph: 7',
+    //     '<b>Time: 11:07</b><br> Location: ' + flightCoordinates[7] + '<br>mph: 8',
+    //     '<b>Time: 11:12</b><br> Location: ' + flightCoordinates[8] + '<br>mph: 9',
+    //     '<b>Time: 11:17</b><br> Location: ' + flightCoordinates[9] + '<br>mph: 10',
+    //     '<b>Time: 11:22</b><br> Location: ' + flightCoordinates[10] + '<br>mph: 11',
+    //     '<b>Time: 11:27</b><br> Location: ' + flightCoordinates[11] + '<br>mph: 12',
+    //     '<b>Time: 11:32</b><br> Location: ' + flightCoordinates[12] + '<br>mph: 13',
+    //     '<b>Time: 11:37</b><br> Location: ' + flightCoordinates[13] + '<br>mph: 14',
+    //     '<b>Time: 11:42</b><br> Location: ' + flightCoordinates[14] + '<br>mph: 15',
+    //     '<b>Time: 11:47</b><br> Location: ' + flightCoordinates[15] + '<br>mph: 16',
+    //     '<b>Time: 11:52</b><br> Location: ' + flightCoordinates[16] + '<br>mph: 17',
+    //     '<b>Time: 11:57</b><br> Location: ' + flightCoordinates[17] + '<br>mph: 18',
+    // ]
+
+    function initialize() {
+        var mapOptions = {
+            zoom: 16.0,
+            center: new google.maps.LatLng(33.511554, -86.811659),
+            mapTypeId: google.maps.MapTypeId.SATELLITE
+        };
+
+        var map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);
+
+
+
+
+
+
+        var infowindows = []
+
+        var flightPath = new google.maps.Polyline({
+            path: flightCoordinates,
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+        });
+
+        flightPath.setMap(map);
+
+        var markers = [];
+
+        function createEventListenerFunction(x) {
+            google.maps.event.addListener(markers[x], 'click', function() {
+                infowindows[x].open(map, markers[x])
+            });
+        }
+
+
+
+        for (i = 0; i < flightCoordinates.length; i++) {
+            markers[i] = new google.maps.Marker({
+                position: flightCoordinates[i],
+                map: map,
+                title: i.toString()
+            });
+
+            infowindows[i] = new google.maps.InfoWindow({
+                content: flightDescriptions[i]
+            });
+
+            infofunction = function(y) {
+                infowindow.open(map, markers[y]);
+                console.log([y])
+            }
+
+            createEventListenerFunction(i);
+
+
+        };
+
+
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+    var lastItem = flightDescriptions.length - 1;
+    document.getElementById("latestdata").innerHTML = flightDescriptions[lastItem];
+    </script>
+</body>
+
+</html>

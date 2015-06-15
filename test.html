@@ -1,0 +1,26 @@
+<body>
+	<ul>
+		<li id="1" value="1"></li>
+		<li id="2" value="2"></li>
+		<li id="3" value="3"></li>
+		<li id="4" value="4"></li>
+		<li id="5" value="5"></li>
+		<li id="6" value="6"></li>
+		<li id="7" value="7"></li>
+		<li id="8" value="8"></li>
+		<li id="9" value="9"></li>
+		<li id="10" value="10"></li>
+	</ul>
+</body>
+<script>
+var elements = [];
+var elements = document.querySelectorAll("li");
+var numbers = [];
+var test = [];
+var i = 0;
+	for(i=0;i<10;i++) {
+		numbers[i] = i;
+		test[i] = elements[i].value + i;
+		elements[i].innerHTML = test[i];
+	};
+</script>

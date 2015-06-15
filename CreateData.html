@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <!-- 
+    http://data.sparkfun.com/input/wpvj38xXg8HbE4x9ndYN?private_key=wzeEAJPDqJIdDejPg7NE&altitude=5&battry_voltage=[value]&day=[value]&external_temp=[value]&heading=[value]&internal_temp=[value]&latitude=[value]&longitude=[value]&minute=[value]&month=[value]&second=[value]&speed=[value]&year=[value] -->
+    <form id="frm1">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>PublicKey:</td>
+                    <td>PrivateKey:</td>
+                    <td>latitude:</td>
+                    <td>longitude:</td>
+                    <td>altitude:</td>
+                    <td>heading:</td>
+                    <td>speed:</td>
+                    <td>external_temp:</td>
+                    <td>internal_temp:</td>
+                    <td>battry_voltage:</td>
+                    <td>hour:</td>
+                    <td>minute:</td>
+                    <td>second:</td>
+                    <td>year:</td>
+                    <td>month:</td>
+                    <td>day:</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="text" id="PublicKey" value="wpvj38xXg8HbE4x9ndYN">
+                    </td>
+                    <td>
+                        <input type="text" id="PrivateKey" value="wzeEAJPDqJIdDejPg7NE">
+                    </td>
+                    <td>
+                        <input type="text" id="latitude" value="33.505304">
+                    </td>
+                    <td>
+                        <input type="text" id="longitude" value="-86.807809">
+                    </td>
+                    <td>
+                        <input type="text" id="altitude" value="5">
+                    </td>
+                    <td>
+                        <input type="text" id="heading" value="13.7">
+                    </td>
+                    <td>
+                        <input type="text" id="speed" value="3">
+                    </td>
+                    <td>
+                        <input type="text" id="external_temp" value="72">
+                    </td>
+                    <td>
+                        <input type="text" id="internal_temp" value="70">
+                    </td>
+                    <td>
+                        <input type="text" id="battery_voltage" value="12.7">
+                    </td>
+                    <td>
+                        <input type="text" id="hour" value="10">
+                    </td>
+                    <td>
+                        <input type="text" id="minute" value="0">
+                    </td>
+                    <td>
+                        <input type="text" id="second" value="0">
+                    </td>
+                    <td>
+                        <input type="text" id="year" value="2015">
+                    </td>
+                    <td>
+                        <input type="text" id="month" value="6">
+                    </td>
+                    <td>
+                        <input type="text" id="day" value="15">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <div>
+        <a id="printlink" href=""></a>
+    </div>
+    <div id="BuiltLink">
+    </div>
+</body>
+<script>
+var Elements = document.querySelectorAll("input");
+var Data = Object();
+Data.id = [];
+Data.value = [];
+Data.links = [];
+for (i = 0; i < Elements.length; i++) {
+    for (z = 0; z < Elements.length; z++) {
+        Data.id[z] = "&"+Elements[z].id;
+    };
+    // Construct an array with all values needed to be modified.
+    for (y = 0; y < Elements.length; y++) {
+        Data.value[y] = Elements[y].value;
+    };
+
+    // Modify each value by adding i
+    for (x = 0; x < Elements.length; x++) {
+        Data.value[x] = Number(Data.value[x]) + i;
+    };
+
+    // Construct a hyperlink with current values.
+    Data.links[i] = "http://data.sparkfun.com/input/wpvj38xXg8HbE4x9ndYN?private_key=wzeEAJPDqJIdDejPg7NE"+
+    Data.id[2]+"="+Data.value[2]+
+    Data.id[3]+"="+Data.value[3]+
+    Data.id[4]+"="+Data.value[4]+
+    Data.id[5]+"="+Data.value[5]+
+    Data.id[6]+"="+Data.value[6]+
+    Data.id[7]+"="+Data.value[7]+
+    Data.id[8]+"="+Data.value[8]+
+    Data.id[9]+"="+Data.value[9]+
+    Data.id[10]+"="+Data.value[10]+
+    Data.id[11]+"="+Data.value[11]+
+    Data.id[12]+"="+Data.value[12]+
+    Data.id[13]+"="+Data.value[13]+
+    Data.id[14]+"="+Data.value[14]+
+    Data.id[15]+"="+Data.value[15]+
+    Data.id[16]+"="+Data.value[16];
+console.log(Data.links[i])
+    // // Add hyperlink to dom.
+};
+var maslink
+for(i=0;i<Data.links.length;i++) {
+    maslink += '<a href="'+Data.links[i]+'">'+Data.links[i]+'</a><br>'
+}
+document.getElementById("BuiltLink").innerHTML = maslink
+</script>
+
+</html>
+<script>
+// var inputs = document.querySelectorAll("input");
+// var i = 0;
+// var ids = [];
+// //var values = [];
+// var links = [];
+// var MasLink = "";
+// var words = []
+// for (i = 2; i < inputs.length; i++) {
+//     var temp = Object();
+//     temp.value = inputs[i].value
+//     //ids[i].id = inputs[i].id;
+//     ids[i] = temp;
+// };
+
+// for (i = 0;i<ids.length;i++) {
+
+//     ids[i].value = Number(inputs[i].value) + i;
+// }
+
+// for (i = 2; i < inputs.length; i++) {
+//     links[i] = "http://data.sparkfun.com/input/wpvj38xXg8HbE4x9ndYN?private_key=wzeEAJPDqJIdDejPg7NE&altitude=" + ids[2].value + "&latitude=" + ids[8].value + "&longitude=" + ids[9].value + "&external_temp=" + ids[5].value + "&heading=" + ids[6].value + "&internal_temp=" + ids[7].value + "&battery_voltage=" + ids[3].value + "&day=" + ids[4].value + "&minute=" + ids[10].value + "&month=" + ids[11].value + "&second=" + ids[12].value + "&speed=" + ids[13].value + "&year=" + ids[14].value;
+//     words[i] = "<small>" + ids[2] + ":" + values[2] + ", " + ids[3] + ":" + values[3] + ", " + ids[4] + ":" + values[4] + ", " + ids[5] + ":" + values[5] + ", " + ids[6] + ":" + values[6] + ", " + ids[7] + ":" + values[7] + ", " + ids[8] + ":" + values[8] + ", " + ids[9] + ":" + values[9] + ", " + ids[10] + ":" + values[10] + ", " + ids[11] + ":" + values[11] + ", " + ids[12] + ":" + values[12] + ", " + ids[13] + ":" + values[13] + ", " + ids[14] + ":" + values[14] + ", " + ids[15] + ":" + values[15] + ", " + "</small>"
+//     MasLink += "<a href=" + links[i] + ">" + words[i] + "</a><br><br>"
+//     document.getElementById("BuiltLink").innerHTML = MasLink
+// }
+//
+</script>
